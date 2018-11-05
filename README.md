@@ -1,2 +1,0 @@
-# src
-src của project
