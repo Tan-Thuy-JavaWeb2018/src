@@ -9,11 +9,11 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
 import Objects.Products;
- 
 
-public class dao_Products {
-	
+
+public class dao_Products { 
 	ConnectToDB conndb;
+	Connection con;
 	//	Phương thức lấy dữ liệu về
 	public ArrayList<Products> SelectDB(String sql) { 
 		conndb = new ConnectToDB();
@@ -50,18 +50,6 @@ public class dao_Products {
 		} 
 		return null;
 	}
-	//	Phương thức thêm
-	public boolean AddData() {
-		return false;
-	}
-	//	Phương thức sửa
-	public boolean EditData() {
-		return false;
-	}
-	//	Phương thức xóa
-	public boolean DelData() {
-		return false;
-	}
 	
 	public static void main(String[] args) { 
 		dao_Products dao = new  dao_Products(); 
@@ -73,7 +61,7 @@ public class dao_Products {
 			System.out.println(fmt.format(price_sale));
 		} 
 		System.out.println("Check ok!");   
- 
+
 	}
 
 }

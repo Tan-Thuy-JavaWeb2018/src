@@ -6,18 +6,23 @@ import Model.dao_Products;
 import Objects.Products;
 
 public class ProductsControl {
-	public ArrayList<Products> getListCategory(){ 
+//	Lấy toàn bộ sản phẩm
+	public ArrayList<Products> getListProducts(){ 
 		dao_Products dao = new dao_Products(); 
 		String sql = "Select * From sanpham";
 		return dao.SelectDB(sql);
 	}
+//	Lấy sản phẩm theo từng loại
+	public ArrayList<Products> getListProductsType(int id){ 
+		dao_Products dao = new dao_Products(); 
+		String sql = "Select * From sanpham Where id_loaisp ="+id;
+		return dao.SelectDB(sql);
+	}
 	public static void main(String[] args) {  
-		dao_Products dao = new  dao_Products();  
-		for (Products ls : dao.SelectDB("Select * From sanpham")) { 
-			DecimalFormat numformat = new DecimalFormat("#,###,###"); 
-			String number = numformat.format(ls.getGiagoc()*900000000); 
-			System.out.println("3. DecimalFormat with ,: " + number);
-		} 
+		ProductsControl p = new ProductsControl(); 
+		for(Products ls : p.getListProductsType(2)) {
+			System.out.println(ls.getId_loaisanpham()+" "+ls.getTensanpham());
+		}
 	}
 
 }
