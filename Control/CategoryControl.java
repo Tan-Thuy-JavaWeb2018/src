@@ -12,6 +12,12 @@ public class CategoryControl {
 		String sql = "Select * From loaisanpham";
 		return dao.SelectDB(sql);
 	}
+	
+	public Category getFindWithId(int id) {
+		dao_Category dao = new dao_Category();
+		String sql = "SELECT * FROM loaisanpham WHERE id = " + id;
+		return dao.FindWithId(sql);
+	}
 
 	public static void main(String[] args) { 
 

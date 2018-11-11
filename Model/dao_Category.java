@@ -51,11 +51,38 @@ public class dao_Category {
 	public boolean DelData() {
 		return false;
 	}
-
+	
+	public Category FindWithId(String sql) { 
+		conndb = new ConnectToDB();
+		// Mở kết nối nhận biến con ở dạng com.mysql.jdbc.JDBC4Connection@5c072e3f
+		Connection con = (Connection) conndb.OpenConnnect();  
+		//Khởi tạo đối tượng lưu giá trị
+		Category category = new Category(); 
+		Statement stmt; 
+		try {
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);  
+			while (rs.next()) {
+				category.setId(rs.getLong("id"));
+				category.setTenloai(rs.getString("tenloai"));
+			}
+			// Đóng kết nối
+			conndb.CloseConnect();
+			return category;
+		} 
+		catch (SQLException e) { 
+			// Đóng kết nối
+			conndb.CloseConnect();
+			e.printStackTrace();
+		} 
+		return null;
+	}
 	public static void main(String[] args) {
 		dao_Category sl = new  dao_Category(); 
 		System.out.println(sl.SelectDB("Select * From loaisanpham").get(0).getId());
 		System.out.println("ok");
+		System.out.println(sl.FindWithId("Select * From loaisanpham where id = 2").getTenloai());
+		System.out.println("ok find");
 	}
 
 }
