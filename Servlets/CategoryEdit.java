@@ -1,7 +1,6 @@
-package Servlets;
+package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Control.CategoryControl;
 import Objects.Category;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class CategoryEdit
@@ -34,17 +34,16 @@ public class CategoryEdit extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String id = request.getParameter("id");
 		CategoryControl categoryControl = new CategoryControl();
 		Category category = new Category();
+
+		String id = request.getParameter("id");
+
 		category = categoryControl.getFindWithId(Integer.parseInt(id));
 		request.setAttribute("category", category);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
 		dispatcher.forward(request, response);
-//		PrintWriter writer = response.getWriter();
-//		writer.println(category.getTenloai());
-
 	}
 
 	/**
@@ -56,21 +55,25 @@ public class CategoryEdit extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter writer = response.getWriter();
+		
 		String id = request.getParameter("id");
 		String tenloai = request.getParameter("tenloai");
+		
 		Category category = new Category();
 		category.setId(Long.parseLong(id));
 		category.setTenloai(tenloai);
+		
 		CategoryControl categoryControl = new CategoryControl();
+		
 		boolean check = categoryControl.getEditData(category);
 		if (check) {
-			writer.println("Thanhf coong");
+			HttpSession session = request.getSession();
+			session.setAttribute("Edit", "Success");
+			session.setMaxInactiveInterval(15);
+			response.sendRedirect("list");
 		} else {
-			writer.println("TB");
+			
 		}
-		writer.println(id);
-		writer.println(tenloai);
 	}
 
 }

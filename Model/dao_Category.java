@@ -42,7 +42,23 @@ public class dao_Category {
 	}
 
 	// Phương thức thêm
-	public boolean AddData() {
+	public boolean AddData(Category category, String sql) {
+		conndb = new ConnectToDB();
+		// Mở kết nối nhận biến con ở dạng com.mysql.jdbc.JDBC4Connection@5c072e3f
+		Connection con = (Connection) conndb.OpenConnnect();
+		
+		PreparedStatement pst = null;
+		// Cho phép truyền câu lệnh SQL có tham số vào
+		try {
+			pst = con.prepareStatement(sql);
+			pst.executeUpdate();
+
+			conndb.CloseConnect();
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		conndb.CloseConnect();
 		return false;
 	}
 
@@ -50,25 +66,18 @@ public class dao_Category {
 	public boolean EditData(Category category, String sql) {
 		conndb = new ConnectToDB();
 		Connection con = (Connection) conndb.OpenConnnect();
-		System.out.println("MOdel");
-		System.out.println(category.getTenloai());
-		System.out.println(sql);
-		// Chuẩn bị 1 prepared statement
-		// Cho phép dùng câu lệnh SQL có truyền tham số vào
+		// Chuẩn bị 1 prepared statement Cho phép dùng câu lệnh SQL có truyền tham số vào
 		PreparedStatement pst = null;
 		try {
-			
 			pst = con.prepareStatement(sql);
-		
 			pst.setString(1, category.getTenloai());
 			pst.setLong(2, category.getId());
+
 			pst.executeUpdate();
 			conndb.CloseConnect();
-			//setError("Cập nhật thành công!");
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			//setError("Lỗi cập nhật");
 			e.printStackTrace();
 		}
 		conndb.CloseConnect();
@@ -76,7 +85,21 @@ public class dao_Category {
 	}
 
 	// Phương thức xóa
-	public boolean DelData() {
+	public boolean DelData(int id, String sql) {
+		conndb = new ConnectToDB();
+		Connection con = (Connection) conndb.OpenConnnect();
+		PreparedStatement pst = null;
+		// Cho phép truyền câu lệnh SQL có tham số vào
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.executeUpdate();
+			conndb.CloseConnect();
+			return true;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		conndb.CloseConnect();
 		return false;
 	}
 
@@ -104,13 +127,4 @@ public class dao_Category {
 		}
 		return null;
 	}
-
-	public static void main(String[] args) {
-		dao_Category sl = new dao_Category();
-		System.out.println(sl.SelectDB("Select * From loaisanpham").get(0).getId());
-		System.out.println("ok");
-		System.out.println(sl.FindWithId("Select * From loaisanpham where id = 2").getTenloai());
-		System.out.println("ok find");
-	}
-
 }
