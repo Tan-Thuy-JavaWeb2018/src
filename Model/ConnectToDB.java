@@ -5,7 +5,7 @@ import java.sql.*;
 public class ConnectToDB {
 
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost:3306/banhang_javaweb";
+	String url = "jdbc:mysql://localhost:3306/banhang_javaweb?useUnicode=yes&characterEncoding=UTF-8";
 	String username = "root";
 	String password = "";
 

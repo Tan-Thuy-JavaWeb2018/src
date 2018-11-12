@@ -18,25 +18,23 @@ public class CategoryControl {
 		String sql = "SELECT * FROM loaisanpham WHERE id = " + id;
 		return dao.FindWithId(sql);
 	}
-
+	
+	public boolean getEditData(Category category) {
+		dao_Category dao = new dao_Category();
+		String sql = "UPDATE loaisanpham SET tenloai = ? WHERE id = ?";
+		System.out.println("Control");
+		System.out.println(category.getTenloai());
+		System.out.println(sql);
+		return dao.EditData(category, sql);
+	}
+	
 	public static void main(String[] args) { 
 
-		CategoryControl c = new CategoryControl();  
-		if(c.getListCategory().size() != 0) {
-//			Lấy toàn bộ trong danh sách
-			for(Category ls : c.getListCategory()) { 
-				System.out.println(ls.getId()+" "+ls.getTenloai());
-			}
-//			Lấy theo số lượng
-//			int quantity = 3;
-//			for(int index = 0; index < quantity; index++) {
-//				long id = c.getListCategory().get(index).getId();
-//				String tenloai = c.getListCategory().get(index).getTenloai();
-//				System.out.println(id+" "+tenloai);
-//			}
-		}
-		else
-			System.out.println("Không có dữ liệu để in");
+//		CategoryControl c = new CategoryControl();  
+//		Category category = new Category();
+//		category.setId(2);
+//		category.setTenloai("Banh 1");
+//		c.getEditData(category);
 	}
 
 }
