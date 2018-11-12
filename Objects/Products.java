@@ -4,14 +4,14 @@ public class Products {
 	long id, id_loaisp;
 	String tensanpham, mota, anhchinh; 
 	double giagoc;
-	int khuyenmai,luotthich;
-	
+	int khuyenmai,luotthich,tinhtrang;
+
 	public Products() {
 
 	}
 	
 	public Products(long id, long id_loaisanpham, String tensanpham, String mota, String anhchinh, double giagoc,
-			int khuyenmai, int luotthich) { 
+			int khuyenmai, int luotthich, int tinhtrang) { 
 		this.id = id;
 		this.id_loaisp = id_loaisanpham;
 		this.tensanpham = tensanpham;
@@ -20,6 +20,7 @@ public class Products {
 		this.giagoc = giagoc;
 		this.khuyenmai = khuyenmai;
 		this.luotthich = luotthich;
+		this.tinhtrang = tinhtrang;
 	}
 	
 	public long getId() {
@@ -70,4 +71,10 @@ public class Products {
 	public void setLuotthich(int luotthich) {
 		this.luotthich = luotthich;
 	} 
+	public int getTinhtrang() {
+		return tinhtrang;
+	}
+	public void setTinhtrang(int tinhtrang) {
+		this.tinhtrang = tinhtrang;
+	}
 }
