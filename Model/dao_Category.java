@@ -50,16 +50,14 @@ public class dao_Category {
 	public boolean EditData(Category category, String sql) {
 		conndb = new ConnectToDB();
 		Connection con = (Connection) conndb.OpenConnnect();
-		System.out.println("MOdel");
+		System.out.println("Model");
 		System.out.println(category.getTenloai());
 		System.out.println(sql);
 		// Chuẩn bị 1 prepared statement
 		// Cho phép dùng câu lệnh SQL có truyền tham số vào
 		PreparedStatement pst = null;
-		try {
-			
-			pst = con.prepareStatement(sql);
-		
+		try { 
+			pst = con.prepareStatement(sql); 
 			pst.setString(1, category.getTenloai());
 			pst.setLong(2, category.getId());
 			pst.executeUpdate();

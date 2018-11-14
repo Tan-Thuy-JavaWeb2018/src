@@ -36,6 +36,7 @@ public class dao_Products {
 				products.setLuotthich(rs.getInt("luotthich"));
 				products.setMota(rs.getString("mota"));
 				products.setTensanpham(rs.getString("tensanpham"));
+				products.setTinhtrang(rs.getInt("tinhtrang"));
 				// Thêm vào danh sách
 				list.add(products);  
 			}

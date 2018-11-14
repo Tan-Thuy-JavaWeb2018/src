@@ -20,8 +20,8 @@ public class ProductsControl {
 	}
 	public static void main(String[] args) {  
 		ProductsControl p = new ProductsControl(); 
-		for(Products ls : p.getListProductsType(2)) {
-			System.out.println(ls.getId_loaisanpham()+" "+ls.getTensanpham());
+		for(Products ls : p.getListProductsType(4)) {
+			System.out.println(ls.getId_loaisanpham()+" "+ls.getTensanpham()+" "+ls.getTinhtrang());
 		}
 	}
 
