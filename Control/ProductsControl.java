@@ -28,7 +28,7 @@ public class ProductsControl {
 				+ ", " + product.getKhuyenmai() + ", \"" + product.getAnhchinh() + "\", " + product.getTinhtrang()
 				+ ", " + product.getLuotthich() + ", " + product.getId_loaisanpham() + " )";
 
-		System.out.println(sql);
+//		System.out.println(sql);
 		return dao.AddData(product, sql);
 	}
 
@@ -41,7 +41,11 @@ public class ProductsControl {
 		String sql = "DELETE FROM sanpham WHERE id = ?";
 		return dao.DelData(id, sql);
 	}
-
+	
+	public boolean getEditData(Products product) {
+		String sql = "UPDATE sanpham SET tensanpham = ?, mota = ?, giagoc = ?, khuyenmai = ?, anhchinh = ?, noibat = ?, luotthich = ?, id_loaisp = ? WHERE id = ?";;
+		return dao.EditData(product, sql);
+	}
 	public static void main(String[] args) {
 		ProductsControl p = new ProductsControl();
 		for (Products ls : p.getListProductsType(2)) {

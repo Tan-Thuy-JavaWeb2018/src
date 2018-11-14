@@ -123,6 +123,33 @@ public class dao_Products {
 		return false;
 	}
 
+	public boolean EditData(Products product, String sql) {
+		conndb = new ConnectToDB();
+		Connection con = (Connection) conndb.OpenConnnect();
+		// Chuẩn bị 1 prepared statement Cho phép dùng câu lệnh SQL có truyền tham số vào
+		PreparedStatement pst = null;
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, product.getTensanpham());
+			pst.setString(2, product.getMota());
+			pst.setDouble(3, product.getGiagoc());
+			pst.setInt(4, product.getKhuyenmai());
+			pst.setString(5, product.getAnhchinh());
+			pst.setInt(6, product.getTinhtrang());
+			pst.setInt(7, product.getLuotthich());
+			pst.setLong(8, product.getId_loaisanpham());
+			pst.setLong(9, product.getId());
+
+			pst.executeUpdate();
+			conndb.CloseConnect();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		conndb.CloseConnect();
+		return false;
+	}
 	public static void main(String[] args) {
 		dao_Products dao = new dao_Products();
 		for (Products ls : dao.SelectDB("Select * From sanpham")) {

@@ -53,7 +53,7 @@ public class ProductDelete extends HttpServlet {
 		String fileName = product.getAnhchinh();
 
 		File file = new File(fullSavePath, fileName);
-		System.out.println(file.getPath());
+//		System.out.println(file.getPath());
 
 		boolean check = productControl.getDelData(id);
 		if (check) {
@@ -61,9 +61,9 @@ public class ProductDelete extends HttpServlet {
 			session.setAttribute("Delete", "Success");
 			session.setMaxInactiveInterval(15);
 			if (file.delete()) {
-				System.out.println("đã xóa file: " + file.getName());
+//				System.out.println("đã xóa file: " + file.getName());
 			} else {
-				System.out.println("Xóa file thất bại.");
+//				System.out.println("Xóa file thất bại.");
 			}
 			response.sendRedirect("list");
 		} else {
