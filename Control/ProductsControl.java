@@ -21,12 +21,6 @@ public class ProductsControl {
 		String sql = "Select * From sanpham Where id_loaisp =" + id;
 		return dao.SelectDB(sql);
 	}
-<<<<<<< HEAD
-	public static void main(String[] args) {  
-		ProductsControl p = new ProductsControl(); 
-		for(Products ls : p.getListProductsType(4)) {
-			System.out.println(ls.getId_loaisanpham()+" "+ls.getTensanpham()+" "+ls.getTinhtrang());
-=======
 
 	public boolean getAddData(Products product) {
 		String sql = "INSERT INTO sanpham (tensanpham, mota, giagoc, khuyenmai, anhchinh, noibat, luotthich, id_loaisp) "
@@ -56,7 +50,6 @@ public class ProductsControl {
 		ProductsControl p = new ProductsControl();
 		for (Products ls : p.getListProductsType(2)) {
 			System.out.println(ls.getId_loaisanpham() + " " + ls.getTensanpham());
->>>>>>> c7997d2a1e710fd73549613203514d585b78f723
 		}
 	}
 

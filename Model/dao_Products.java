@@ -37,11 +37,7 @@ public class dao_Products {
 				products.setLuotthich(rs.getInt("luotthich"));
 				products.setMota(rs.getString("mota"));
 				products.setTensanpham(rs.getString("tensanpham"));
-<<<<<<< HEAD
 				products.setTinhtrang(rs.getInt("tinhtrang"));
-=======
-				products.setTinhtrang(rs.getInt("noibat"));
->>>>>>> c7997d2a1e710fd73549613203514d585b78f723
 				// Thêm vào danh sách
 				list.add(products);
 			}
