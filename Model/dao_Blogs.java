@@ -1,15 +1,13 @@
 package Model;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.NumberFormat;
-import java.util.ArrayList;
+import java.sql.SQLException; 
+import java.util.ArrayList; 
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
-import Objects.Blogs;
-import Objects.Products;
+import Objects.Blogs; 
 
 public class dao_Blogs {
 	ConnectToDB conndb;
@@ -47,11 +45,7 @@ public class dao_Blogs {
 		return null;
 	}
 	public static void main(String[] args) {
-		dao_Blogs dao = new  dao_Blogs(); 
-		for (Blogs ls : dao.SelectDB("Select * From baiviet")) {  
-			System.out.println(ls.getId());
-		} 
-		System.out.println("Check ok!");   
+		
 	}
 
 }

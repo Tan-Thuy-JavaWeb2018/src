@@ -3,6 +3,7 @@ package Model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -14,14 +15,14 @@ public class dao_Users {
 	ConnectToDB conndb;
 	Connection con;
 	//Kiểm tra Email và tài khoản đã tồn tại chưa 
-	public boolean checkEmail(String sql) {
+	public boolean checkAcc(String sql) {
 		conndb = new ConnectToDB();
 		con = (Connection) conndb.OpenConnnect(); 
 		Statement stmt; 
 		try {
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next()) {
+			if(rs.next()) {
 				conndb.CloseConnect();
 				return true;
 			}
@@ -36,9 +37,9 @@ public class dao_Users {
 	//	Phương thức thêm một tài khoản mới
 	public boolean AddAccount(Users user) {
 		conndb = new ConnectToDB();
-		Connection con = (Connection) conndb.OpenConnnect();
+		con = (Connection) conndb.OpenConnnect(); 
+		String sql = "INSERT INTO taikhoan VALUES (default,?,?,?,?,?,?) ";
 		PreparedStatement pst = null;
-		String sql = "INSERT INTO taikhoan VALUES(?,?,?,?,?,?) ";
 		try { 
 			pst = con.prepareCall(sql); 
 			pst.setString(1, user.getTentaikhoan());
@@ -51,8 +52,6 @@ public class dao_Users {
 			conndb.CloseConnect(); 
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			//setError("Lỗi cập nhật");
 			e.printStackTrace();
 		}
 		conndb.CloseConnect();
@@ -60,9 +59,16 @@ public class dao_Users {
 	}
 
 	public static void main(String[] args) {
-		dao_Users dao = new dao_Users();
-		String sql = "SELECT * FROM taikhoan WHERE email = 'thuy' ";
-		System.out.println(dao.checkEmail(sql));
+		Pattern pattern; 
+		final String PASSWORD_PATTERN = ".{3,30}";  
+		//	Kiểm tra tên tài khoản
+		pattern = Pattern.compile(PASSWORD_PATTERN);
+		if(pattern.matcher("H").matches()) {
+			System.out.println("Được");
+		}
+		else {
+			 System.out.println("Không");
+		}
 	}
 
 }
