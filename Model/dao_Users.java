@@ -2,14 +2,12 @@ package Model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.regex.Pattern;
+import java.sql.SQLException; 
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
-
-import Objects.Category;
-import Objects.Users;
+ 
+import Objects.Users; 
 
 public class dao_Users {
 	ConnectToDB conndb;
@@ -58,17 +56,34 @@ public class dao_Users {
 		return false;
 	}
 
-	public static void main(String[] args) {
-		Pattern pattern; 
-		final String PASSWORD_PATTERN = ".{3,30}";  
-		//	Kiểm tra tên tài khoản
-		pattern = Pattern.compile(PASSWORD_PATTERN);
-		if(pattern.matcher("H").matches()) {
-			System.out.println("Được");
+	//Phương thức kiểm tra đăng nhập
+	public Users CheckLogin(String sql) {
+		conndb = new ConnectToDB();
+		con = (Connection) conndb.OpenConnnect(); 
+		Statement stmt; 
+		try {
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				Users user = new Users();
+				user.setId(rs.getLong("id"));
+				user.setTentaikhoan(rs.getString("tentaikhoan"));
+				user.setEmail("email");
+				user.setPhanquyen("phanquyen");
+				user.setTenhienthi(rs.getString("tenhienthi"));
+				conndb.CloseConnect(); 
+				return user;
+			}
+
+		} catch (SQLException e) { 
+			e.printStackTrace();
 		}
-		else {
-			 System.out.println("Không");
-		}
+		conndb.CloseConnect();
+		return null;  
+	}
+
+	public static void main(String[] args) {  
+		
 	}
 
 }
