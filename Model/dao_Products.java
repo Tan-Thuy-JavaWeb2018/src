@@ -89,7 +89,7 @@ public class dao_Products {
 				product.setGiagoc(rs.getDouble("giagoc"));
 				product.setKhuyenmai(rs.getInt("khuyenmai"));
 				product.setAnhchinh(rs.getString("anhchinh"));
-				product.setTinhtrang(rs.getInt("noibat"));
+				product.setTinhtrang(rs.getInt("tinhtrang"));
 				product.setLuotthich(rs.getInt("luotthich"));
 				product.setId_loaisanpham(rs.getLong("id_loaisp"));
 			}

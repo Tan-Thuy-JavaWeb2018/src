@@ -23,7 +23,7 @@ public class ProductsControl {
 	}
 
 	public boolean getAddData(Products product) {
-		String sql = "INSERT INTO sanpham (tensanpham, mota, giagoc, khuyenmai, anhchinh, noibat, luotthich, id_loaisp) "
+		String sql = "INSERT INTO sanpham (tensanpham, mota, giagoc, khuyenmai, anhchinh, tinhtrang, luotthich, id_loaisp) "
 				+ "VALUES (\"" + product.getTensanpham() + "\", \"" + product.getMota() + "\"," + product.getGiagoc()
 				+ ", " + product.getKhuyenmai() + ", \"" + product.getAnhchinh() + "\", " + product.getTinhtrang()
 				+ ", " + product.getLuotthich() + ", " + product.getId_loaisanpham() + " )";
@@ -43,7 +43,7 @@ public class ProductsControl {
 	}
 	
 	public boolean getEditData(Products product) {
-		String sql = "UPDATE sanpham SET tensanpham = ?, mota = ?, giagoc = ?, khuyenmai = ?, anhchinh = ?, noibat = ?, luotthich = ?, id_loaisp = ? WHERE id = ?";;
+		String sql = "UPDATE sanpham SET tensanpham = ?, mota = ?, giagoc = ?, khuyenmai = ?, anhchinh = ?, tinhtrang = ?, luotthich = ?, id_loaisp = ? WHERE id = ?";;
 		return dao.EditData(product, sql);
 	}
 	public static void main(String[] args) {
