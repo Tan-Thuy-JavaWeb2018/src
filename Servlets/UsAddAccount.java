@@ -32,7 +32,6 @@ public class UsAddAccount extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8"); 
-		System.out.println("a");
 		// khai báo session
 		HttpSession session = request.getSession(); 
 
@@ -54,8 +53,7 @@ public class UsAddAccount extends HttpServlet {
 					session.setAttribute("acc"+i, acc[i]);
 					count++;
 				}
-			}
-			System.out.println(count);
+			} 
 			if(count == 0) {
 				//Xử lý thêm tài khoản mới 
 				Users users = new Users(); 

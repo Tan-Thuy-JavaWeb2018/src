@@ -68,8 +68,8 @@ public class dao_Users {
 				Users user = new Users();
 				user.setId(rs.getLong("id"));
 				user.setTentaikhoan(rs.getString("tentaikhoan"));
-				user.setEmail("email");
-				user.setPhanquyen("phanquyen");
+				user.setEmail(rs.getString("email"));
+				user.setPhanquyen(rs.getString("phanquyen"));
 				user.setTenhienthi(rs.getString("tenhienthi"));
 				conndb.CloseConnect(); 
 				return user;

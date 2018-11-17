@@ -40,7 +40,7 @@ public class UsCheckLogin extends HttpServlet {
 			}
 			if(us.getPhanquyen().equals("admin")) {
 				response.sendRedirect("../admin/pages/home/index.jsp");
-			}
+			} 
 		}
 		else {
 			String error = "Thông tin đăng nhập chưa tồn tại, vui lòng kiểm tra lại!";
