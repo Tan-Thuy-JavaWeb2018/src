@@ -34,7 +34,13 @@ public class UsCheckLogin extends HttpServlet {
 		if(dao.CheckLogin(sql) != null) {
 			Users us = dao.CheckLogin(sql); 
 			session.setAttribute("uslogin", us);
-			response.sendRedirect("../index.jsp");
+			//	Đăng nhập thành công nếu user chuyển qua trang chủ người dùng nếu admin chuyển qua trang chủ admin
+			if(us.getPhanquyen().equals("user")) {
+				response.sendRedirect("../index.jsp"); 
+			}
+			if(us.getPhanquyen().equals("admin")) {
+				response.sendRedirect("../admin/pages/home/index.jsp");
+			}
 		}
 		else {
 			String error = "Thông tin đăng nhập chưa tồn tại, vui lòng kiểm tra lại!";

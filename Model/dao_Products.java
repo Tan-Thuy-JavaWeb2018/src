@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
-
+ 
 import Objects.Products;
 
 public class dao_Products {
@@ -52,6 +52,8 @@ public class dao_Products {
 		return null;
 	}
 
+//--- Xong phần giao diện người dùng ---//
+	
 	public boolean AddData(Products product, String sql) {
 		conndb = new ConnectToDB();
 		// Mở kết nối nhận biến con ở dạng com.mysql.jdbc.JDBC4Connection@5c072e3f

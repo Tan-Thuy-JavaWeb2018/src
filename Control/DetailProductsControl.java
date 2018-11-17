@@ -30,12 +30,12 @@ public class DetailProductsControl {
 		String sql = "SELECT * FROM chitietsanpham WHERE id = " + id;
 		return dao.FindWithId(sql);
 	}
-	
+
 	public boolean getEditData(DetailProducts detail) {
 		String sql = "UPDATE chitietsanpham SET anhchitiet = ? WHERE id = ?";
 		return dao.EditData(detail, sql);
 	}
-	
+
 	public boolean getDelData(long id) {
 		String sql = "DELETE FROM chitietsanpham WHERE id = ?";
 		return dao.DelData(id, sql);
