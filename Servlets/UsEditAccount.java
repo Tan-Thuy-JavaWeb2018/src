@@ -19,10 +19,7 @@ import Objects.Users;
 
 @WebServlet("/pages/user-profile")
 public class UsEditAccount extends HttpServlet { 
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	} 
+ 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//	Hiển thị tiếng Việt
 		request.setCharacterEncoding("UTF-8");

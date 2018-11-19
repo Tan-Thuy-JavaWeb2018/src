@@ -60,8 +60,7 @@ public class dao_Users {
 	//	Phương thức cập nhật thông tin cho tài khoản
 	public boolean EditAccount(Users user) {
 		conndb = new ConnectToDB();
-		con = (Connection) conndb.OpenConnnect(); 
-
+		con = (Connection) conndb.OpenConnnect();  
 		String sql = "UPDATE taikhoan SET tenhienthi = ? , matkhau = ? WHERE tentaikhoan = ? ";
 		PreparedStatement pst = null;
 		try { 
@@ -69,6 +68,26 @@ public class dao_Users {
 			pst.setString(1, user.getTenhienthi());
 			pst.setString(2, user.getMatkhau());  
 			pst.setString(3, user.getTentaikhoan());
+			pst.executeUpdate();
+			conndb.CloseConnect(); 
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		conndb.CloseConnect();
+		return false;
+	}
+	
+//	Phương thức cập nhật ảnh cho tài khoản
+	public boolean EditAccountAvt(Users user) {
+		conndb = new ConnectToDB();
+		con = (Connection) conndb.OpenConnnect();  
+		String sql = "UPDATE taikhoan SET hinhanh = ? WHERE tentaikhoan = ? ";
+		PreparedStatement pst = null;
+		try { 
+			pst = con.prepareCall(sql); 
+			pst.setString(1, user.getHinhanh());
+			pst.setString(2, user.getTentaikhoan());   
 			pst.executeUpdate();
 			conndb.CloseConnect(); 
 			return true;
