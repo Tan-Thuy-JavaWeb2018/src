@@ -33,7 +33,7 @@ public class UsCheckLogin extends HttpServlet {
 		String sql = "SELECT * FROM taikhoan WHERE (tentaikhoan = '"+user_name+"' AND matkhau = '"+user_pass+"')  OR (email = '"+user_name+"' AND matkhau = '"+user_pass+"') ";
 		if(dao.CheckLogin(sql) != null) {
 			Users us = dao.CheckLogin(sql); 
-			session.setAttribute("uslogin", us);
+			session.setAttribute("uslogin", us);  
 			//	Đăng nhập thành công nếu user chuyển qua trang chủ người dùng nếu admin chuyển qua trang chủ admin
 			if(us.getPhanquyen().equals("user")) {
 				response.sendRedirect("../index.jsp"); 

@@ -6,12 +6,13 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
- 
+
 import Objects.Users; 
 
 public class dao_Users {
 	ConnectToDB conndb;
 	Connection con;
+
 	//Kiểm tra Email và tài khoản đã tồn tại chưa 
 	public boolean checkAcc(String sql) {
 		conndb = new ConnectToDB();
@@ -56,6 +57,28 @@ public class dao_Users {
 		return false;
 	}
 
+	//	Phương thức cập nhật thông tin cho tài khoản
+	public boolean EditAccount(Users user) {
+		conndb = new ConnectToDB();
+		con = (Connection) conndb.OpenConnnect(); 
+
+		String sql = "UPDATE taikhoan SET tenhienthi = ? , matkhau = ? WHERE tentaikhoan = ? ";
+		PreparedStatement pst = null;
+		try { 
+			pst = con.prepareCall(sql); 
+			pst.setString(1, user.getTenhienthi());
+			pst.setString(2, user.getMatkhau());  
+			pst.setString(3, user.getTentaikhoan());
+			pst.executeUpdate();
+			conndb.CloseConnect(); 
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		conndb.CloseConnect();
+		return false;
+	}
+
 	//Phương thức kiểm tra đăng nhập
 	public Users CheckLogin(String sql) {
 		conndb = new ConnectToDB();
@@ -71,6 +94,7 @@ public class dao_Users {
 				user.setEmail(rs.getString("email"));
 				user.setPhanquyen(rs.getString("phanquyen"));
 				user.setTenhienthi(rs.getString("tenhienthi"));
+				user.setHinhanh(rs.getString("hinhanh"));
 				conndb.CloseConnect(); 
 				return user;
 			}
@@ -83,7 +107,7 @@ public class dao_Users {
 	}
 
 	public static void main(String[] args) {  
-		
+
 	}
 
 }
