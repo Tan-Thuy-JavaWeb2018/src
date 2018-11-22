@@ -40,19 +40,17 @@ public class dao_Cart {
 			cartItems.put(key, item);
 		}
 	}
-	//	Phương thức thêm có số lượng
+	//	Phương thức sửa số lượng giỏ hàng
 	public void updateToCart(Long key, int quantity, Items item) {
 		boolean check = cartItems.containsKey(key);
 		//	Sản phẩm tồn tại thì số lượng củ cộng số lượng mới 
 			if(check) {
 				int quantity_old = item.getQuantity();
-				item.setQuantity(quantity_old+quantity);
+				item.setQuantity(quantity);
 				cartItems.put(key, item);
-			}
-			else {
-				cartItems.put(key, item);
-			}
+			} 
 	}
+	
 	//	Phương thức xóa giỏ hàng
 	public void removeToCart(Long key) {
 		boolean check = cartItems.containsKey(key);

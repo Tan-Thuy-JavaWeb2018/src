@@ -24,6 +24,7 @@ public class UsCart extends HttpServlet {
 		HttpSession session = request.getSession();
 		String status = request.getParameter("status");
 		String id_product = request.getParameter("id_product"); 
+		String quantity_string = request.getParameter("quantity");
 		
 		dao_Cart cart = (dao_Cart) session.getAttribute("cart");
 
@@ -36,7 +37,7 @@ public class UsCart extends HttpServlet {
 			switch (status) {
 			case "add":
 				if(cart.getCartItems().containsKey(id_product)) {
-					cart.insertToCart(idProduct,new Items(product, cart.getCartItems().get(idProduct).getQuantity()));
+					cart.insertToCart(idProduct, new Items(product, cart.getCartItems().get(idProduct).getQuantity()));
 				}
 				else {
 					cart.insertToCart(idProduct, new Items(product, 1));
@@ -44,6 +45,10 @@ public class UsCart extends HttpServlet {
 				break; 
 			case "remove":
 				cart.removeToCart(idProduct);
+				break;
+			case "edit":
+				int quantity = Integer.parseInt(quantity_string);	 
+				cart.updateToCart(idProduct, quantity, new Items(product, cart.getCartItems().get(idProduct).getQuantity()));
 				break;
 			default:
 				break;
@@ -53,7 +58,7 @@ public class UsCart extends HttpServlet {
 			e.printStackTrace();
 		}
 		session.setAttribute("cart", cart);
-		response.sendRedirect("index.jsp");
+		response.sendRedirect(request.getHeader("referer"));
 	}
 
 }
