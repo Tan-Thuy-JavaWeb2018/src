@@ -1,5 +1,6 @@
 package Model;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,8 +40,19 @@ public class dao_Cart {
 			cartItems.put(key, item);
 		}
 	}
-	//	Phương thức thay đổi giỏ hàng
-
+	//	Phương thức thêm có số lượng
+	public void updateToCart(Long key, int quantity, Items item) {
+		boolean check = cartItems.containsKey(key);
+		//	Sản phẩm tồn tại thì số lượng củ cộng số lượng mới 
+			if(check) {
+				int quantity_old = item.getQuantity();
+				item.setQuantity(quantity_old+quantity);
+				cartItems.put(key, item);
+			}
+			else {
+				cartItems.put(key, item);
+			}
+	}
 	//	Phương thức xóa giỏ hàng
 	public void removeToCart(Long key) {
 		boolean check = cartItems.containsKey(key);
@@ -51,16 +63,21 @@ public class dao_Cart {
 	}
 	//	Phương thức đếm số lượng
 	public int countItems() {
-		// Trả về số lượng phẩm phẩm trong cart
+		// Trả về số lượng phẩm phẩm trong giỏ hàng
 		return cartItems.size();
 	}
-
+	
+	DecimalFormat numformat = new DecimalFormat("#,###,###");
 	// Tổng giá tiền
-	public double totalCart() {
-		int count = 0;
+	public String totalCart() { 
+		double count = 0;
 		for (Entry<Long, Items> list : cartItems.entrySet()) {
-			count +=list.getValue().getProducts().getGiagoc() * list.getValue().getQuantity();
+			double cost = list.getValue().getProducts().getGiagoc();
+			int discount = list.getValue().getProducts().getKhuyenmai(); 
+			double total = cost -(cost*discount)/100; 
+			count += total * list.getValue().getQuantity(); 
 		}
-		return count;
+		String price_nb = numformat.format(count);
+		return price_nb;
 	} 
 }
