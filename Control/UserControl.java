@@ -12,5 +12,10 @@ public class UserControl {
 	public Users getUserWithUserName(String user_name) {
 		String sql = "SELECT * FROM taikhoan WHERE tentaikhoan = '"+user_name+"' ";
 		return dao.CheckLogin(sql);
-	} 
+	}
+	
+	public Users getFindById(long id) {
+		String sql = "SELECT * FROM taikhoan WHERE id = " + id;
+		return dao.FindById(sql);
+	}
 }

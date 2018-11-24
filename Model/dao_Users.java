@@ -125,6 +125,33 @@ public class dao_Users {
 		return null;  
 	}
 
+	public Users FindById(String sql) {
+		conndb = new ConnectToDB();
+		// Mở kết nối nhận biến con ở dạng com.mysql.jdbc.JDBC4Connection@5c072e3f
+		Connection con = (Connection) conndb.OpenConnnect();
+		
+		Users user = new Users();
+		Statement stmt;
+		try {
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				user.setId(rs.getLong("id"));
+				user.setTentaikhoan(rs.getString("tentaikhoan"));
+				user.setEmail(rs.getString("email"));
+				user.setPhanquyen(rs.getString("phanquyen"));
+				user.setTenhienthi(rs.getString("tenhienthi"));
+				user.setHinhanh(rs.getString("hinhanh"));
+			}
+			conndb.CloseConnect(); 
+			return user;
+		} catch (SQLException e) {
+			conndb.CloseConnect();
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static void main(String[] args) {  
 
 	}

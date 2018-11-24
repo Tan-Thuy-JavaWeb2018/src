@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 
 import Control.CommentsControl;
 import Control.DetailCommentsControl;
+import Control.UserControl;
 import Objects.Comments;
 import Objects.DetailComments;
 import Objects.Users;
@@ -64,9 +65,9 @@ public class CommentAdd extends HttpServlet {
 				//put toàn bộ dữ liệu commentList vào mapComment
 				HashMap<String,Object> mapComment = new HashMap<String,Object>();
 				mapComment.put("id", comments.getId());
-				mapComment.put("tenhienthi", comments.getId_taikhoan());
+				String name = new UserControl().getFindById(comments.getId_taikhoan()).getTenhienthi();
+				mapComment.put("tenhienthi", name);
 				mapComment.put("noidung", comments.getNoidung());
-//				System.out.println(comments.getCreated_at() + "a");
 				mapComment.put("created_at", comments.getCreated_at().split(" ")[0]);
 				String opition = "";
 				String editComment = "<button class=\"btn btn-success\" onclick=\"EditComment(" + comments.getId() + ",'"
@@ -90,7 +91,8 @@ public class CommentAdd extends HttpServlet {
 //					System.out.println(detailComments.getNoidung());
 					HashMap<String,Object> mapDetailComment = new HashMap<String,Object>();
 					mapDetailComment.put("id", detailComments.getId());
-					mapDetailComment.put("tenhienthict", detailComments.getId_taikhoan());
+					String detailName = new UserControl().getFindById(detailComments.getId_taikhoan()).getTenhienthi();
+					mapDetailComment.put("tenhienthict", detailName);
 					mapDetailComment.put("noidungchitiet", detailComments.getNoidung());
 					mapDetailComment.put("created_at", detailComments.getCreated_at().split(" ")[0]);
 					String opitionDetail = "";
