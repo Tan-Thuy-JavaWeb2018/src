@@ -21,6 +21,7 @@ import org.eclipse.jdt.internal.compiler.batch.Main;
 
 import Control.BlogsControl;
 import Objects.Blogs;
+import Objects.Users;
 
 /**
  * Servlet implementation class BlogAdd
@@ -46,8 +47,13 @@ public class BlogAdd extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("add.jsp");
-		dispatcher.forward(request, response);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("uslogin") != null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("add.jsp");
+			dispatcher.forward(request, response);
+		}else {
+			response.sendRedirect("../../../pages/login.jsp");
+		}
 	}
 
 	/**
@@ -62,8 +68,7 @@ public class BlogAdd extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		Blogs blog = new Blogs();
-		///////////////////////
-		blog.setId_taikhoan(1);
+		
 //		String noidung = request.getParameter("noidung");
 		blog.setNoidung(request.getParameter("noidung"));
 //		System.out.println(noidung);
@@ -102,14 +107,15 @@ public class BlogAdd extends HttpServlet {
 		}
 
 		blog.setHinhanh(fileName);
-
+		HttpSession session = request.getSession();
+		Users us = (Users) session.getAttribute("uslogin");
+		blog.setId_taikhoan(us.getId());
 		BlogsControl blogControl = new BlogsControl();
 		boolean check = blogControl.getAddData(blog);
-
+		
 		if (check) {
-			HttpSession session = request.getSession();
+			
 			session.setAttribute("Add", "Success");
-			session.setMaxInactiveInterval(15);
 			response.sendRedirect("list");
 		} else {
 			System.out.println("Thêm ko thành công");

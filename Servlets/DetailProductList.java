@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Control.DetailProductsControl;
 import Control.ProductsControl;
@@ -44,8 +45,13 @@ public class DetailProductList extends HttpServlet {
 		Products product = productControl.getFindWithId((int)id);
 		request.setAttribute("product", product);
 		request.setAttribute("list", list);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
-		dispatcher.forward(request, response);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("uslogin") != null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
+			dispatcher.forward(request, response);
+		}else {
+			response.sendRedirect("../../../pages/login.jsp");
+		}
 	}
 
 }

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Control.BlogsControl;
 import Objects.Blogs;
@@ -37,8 +38,13 @@ public class BlogView extends HttpServlet {
 		
 		Map<String, String> blog = new BlogsControl().getBlog_TaiKhoanWithId(id);
 		request.setAttribute("blog", blog);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("view.jsp");
-		dispatcher.forward(request, response);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("uslogin") != null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("view.jsp");
+			dispatcher.forward(request, response);
+		}else {
+			response.sendRedirect("../../../pages/login.jsp");
+		}
 	}
 
 	/**

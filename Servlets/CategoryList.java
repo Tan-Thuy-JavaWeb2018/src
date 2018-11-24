@@ -3,6 +3,7 @@ package Servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 import Objects.Category;
+import Objects.Users;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Control.CategoryControl;
 
@@ -35,8 +37,13 @@ public class CategoryList extends HttpServlet {
 		CategoryControl category = new CategoryControl();
 		ArrayList<Category> list = category.getListCategory();
 		request.setAttribute("list", list);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
-		dispatcher.forward(request, response);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("uslogin") != null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
+			dispatcher.forward(request, response);
+		}else {
+			response.sendRedirect("../../../pages/login.jsp");
+		}
 	}
 
 }

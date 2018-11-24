@@ -39,7 +39,7 @@ public class UsCheckLogin extends HttpServlet {
 				response.sendRedirect("../index.jsp"); 
 			}
 			if(us.getPhanquyen().equals("admin")) {
-				response.sendRedirect("../admin/pages/home/index.jsp");
+				response.sendRedirect("../admin/pages/home/");
 			} 
 		}
 		else {
