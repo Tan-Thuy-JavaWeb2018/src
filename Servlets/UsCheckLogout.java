@@ -13,7 +13,7 @@ public class UsCheckLogout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.removeAttribute("uslogin");
-		response.sendRedirect("index.jsp");
+		response.sendRedirect(request.getHeader("referer"));
 	}
   
 }
