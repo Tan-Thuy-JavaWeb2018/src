@@ -72,8 +72,7 @@ public class DetailProductAdd extends HttpServlet {
 
 			// Đường dẫn tuyệt đối tới thư mục gốc của web app.
 			String appPath = request.getServletContext().getRealPath("");
-			appPath = appPath.replace('\\', '/');
-
+			appPath = appPath.replace('\\', '/'); 
 			// Thư mục để save file tải lên.
 			String fullSavePath = null;
 			if (appPath.endsWith("/")) {
@@ -91,7 +90,7 @@ public class DetailProductAdd extends HttpServlet {
 
 			}
 		}
-
+		
 		detail.setAnhChiTiet(fileName);
 		DetailProductsControl detailControl = new DetailProductsControl();
 		boolean check = detailControl.getAddData(detail);

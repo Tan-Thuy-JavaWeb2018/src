@@ -59,7 +59,7 @@ public class UsAddAccount extends HttpServlet {
 				Users users = new Users(); 
 				users.setTentaikhoan(request.getParameter("user-name"));
 				users.setEmail(request.getParameter("user-email"));
-				users.setHinhanh("");
+				users.setHinhanh("avatar.png");
 				users.setMatkhau(encryption(request.getParameter("user-password")));
 				users.setPhanquyen("user");
 				users.setTenhienthi(request.getParameter("user-view"));  
