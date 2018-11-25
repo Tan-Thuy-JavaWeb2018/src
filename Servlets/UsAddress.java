@@ -30,27 +30,29 @@ public class UsAddress extends HttpServlet {
 		String status = request.getParameter("status");
 		String id_city = request.getParameter("id_city");
 		String id_dictricst = request.getParameter("id_dictricst");
- 
+
 		switch (status) {
 		case "district":
-			Long idCity = Long.parseLong(id_city); 
-			String textdictics = "<select required onchange=\"load_town_ward(this.value);\">";
-			for (Districts ls : address.getListDistricts(idCity)) {
-				textdictics += "<option value=\""+ls.getId()+"\">"+ls.getTendaydu()+"</option>";
+			if(id_city != null) {
+				Long idCity = Long.parseLong(id_city); 
+				String textdictics = "<select id=\"iddistrict\" required onchange=\"load_town_ward(this.value);\"> <option value=\"\"></option>"; 
+				for (Districts ls : address.getListDistricts(idCity)) {
+					textdictics += "<option value=\""+ls.getId()+"\">"+ls.getTendaydu()+"</option>";
+				}
+				textdictics += "</select>"; 
+				response.getWriter().println(textdictics);  
 			}
-			textdictics += "</select>"; 
-			response.getWriter().println(textdictics); 
-			System.out.println("ok");
 			break;
 		case "town_ward":
-			Long idDictricst = Long.parseLong(id_dictricst); 
-			String text_town_ward = "<select required>";
-			for (Towns_Wards ls : address.getListTowns_Wards(idDictricst)) {
-				text_town_ward += "<option value=\""+ls.getId()+"\">"+ls.getTendaydu()+"</option>";
+			if(id_dictricst != null) {
+				Long idDictricst = Long.parseLong(id_dictricst); 
+				String text_town_ward = "<select id=\"idtown_ward\" required onchange=\"showship(this.value);\"> <option value=\"\"></option>";
+				for (Towns_Wards ls : address.getListTowns_Wards(idDictricst)) {
+					text_town_ward += "<option value=\""+ls.getTenhanhchinh()+"\">"+ls.getTendaydu()+"</option>";
+				}
+				text_town_ward += "</select>"; 
+				response.getWriter().println(text_town_ward);  
 			}
-			text_town_ward += "</select>"; 
-			response.getWriter().println(text_town_ward); 
-			System.out.println("ok");
 			break;
 		default:
 			break;
