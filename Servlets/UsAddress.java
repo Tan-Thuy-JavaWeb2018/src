@@ -35,7 +35,7 @@ public class UsAddress extends HttpServlet {
 		case "district":
 			if(id_city != null) {
 				Long idCity = Long.parseLong(id_city); 
-				String textdictics = "<select id=\"iddistrict\" required onchange=\"load_town_ward(this.value);\"> <option value=\"\"></option>"; 
+				String textdictics = "<select id=\"iddistrict\" required onchange=\"load_town_ward(this.value);\" name=\"district\"> <option value=\"\"></option>"; 
 				for (Districts ls : address.getListDistricts(idCity)) {
 					textdictics += "<option value=\""+ls.getId()+"\">"+ls.getTendaydu()+"</option>";
 				}
@@ -46,7 +46,7 @@ public class UsAddress extends HttpServlet {
 		case "town_ward":
 			if(id_dictricst != null) {
 				Long idDictricst = Long.parseLong(id_dictricst); 
-				String text_town_ward = "<select id=\"idtown_ward\" required onchange=\"showship(this.value);\"> <option value=\"\"></option>";
+				String text_town_ward = "<select id=\"idtown_ward\" required onchange=\"showship();\" name=\"town_ward\"> <option value=\"\"></option>";
 				for (Towns_Wards ls : address.getListTowns_Wards(idDictricst)) {
 					text_town_ward += "<option value=\""+ls.getTenhanhchinh()+"\">"+ls.getTendaydu()+"</option>";
 				}

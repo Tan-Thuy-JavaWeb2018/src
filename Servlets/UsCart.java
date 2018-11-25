@@ -25,7 +25,7 @@ public class UsCart extends HttpServlet {
 		String status = request.getParameter("status");
 		String id_product = request.getParameter("id_product"); 
 		String quantity_string = request.getParameter("quantity");
-		
+
 		dao_Cart cart = (dao_Cart) session.getAttribute("cart");
 
 		try {
@@ -49,7 +49,7 @@ public class UsCart extends HttpServlet {
 			case "edit":
 				int quantity = Integer.parseInt(quantity_string);	 
 				cart.updateToCart(idProduct, quantity, new Items(product, cart.getCartItems().get(idProduct).getQuantity()));
-				break;
+				break; 
 			default:
 				break;
 			} 
