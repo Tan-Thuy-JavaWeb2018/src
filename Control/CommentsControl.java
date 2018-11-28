@@ -31,7 +31,7 @@ public class CommentsControl {
 	public boolean getAddData(Comments comment) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		String sql = "INSERT INTO binhluanbaiviet (noidung, id_baiviet, id_taikhoan, created_at) " + "VALUES (\""
+		String sql = "INSERT INTO binhluanbaiviet (noidung, id_baiviet, id_taikhoan, ngaydang) " + "VALUES (\""
 				+ comment.getNoidung() + "\", " + comment.getId_baiviet() + ", " + comment.getId_taikhoan() + ", DATE(\"" + dateFormat.format(date) + "\"))";
 		return dao.AddData(comment, sql);
 	}
@@ -44,8 +44,8 @@ public class CommentsControl {
 	public boolean getEditData(Comments comment) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		comment.setUpdated_at(dateFormat.format(date));
-		String sql = "UPDATE binhluanbaiviet SET noidung = ? , updated_at = DATE(?) WHERE id = ?";
+		comment.setNgaySua(dateFormat.format(date));
+		String sql = "UPDATE binhluanbaiviet SET noidung = ? , ngaysua = DATE(?) WHERE id = ?";
 		return dao.EditData(comment, sql);
 	}
 }

@@ -2,14 +2,14 @@ package Objects;
 
 public class Blogs {
 	long id, id_taikhoan;
-	String tieude, mota, noidung, hinhanh, created_at;
+	String tieude, mota, noidung, hinhanh, ngayDang, ngaySua;
 
 	public Blogs() {
 
 	}
 
-	public Blogs(long id, long id_taikhoan, String tieude, String mota, String noidung, String hinhanh,
-			String created_at) {
+	public Blogs(long id, long id_taikhoan, String tieude, String mota, String noidung, String hinhanh, String ngayDang,
+			String ngaySua) {
 		super();
 		this.id = id;
 		this.id_taikhoan = id_taikhoan;
@@ -17,7 +17,8 @@ public class Blogs {
 		this.mota = mota;
 		this.noidung = noidung;
 		this.hinhanh = hinhanh;
-		this.created_at = created_at;
+		this.ngayDang = ngayDang;
+		this.ngaySua = ngaySua;
 	}
 
 	public long getId() {
@@ -68,11 +69,20 @@ public class Blogs {
 		this.hinhanh = hinhanh;
 	}
 
-	public String getCreated_at() {
-		return created_at;
+	public String getNgayDang() {
+		return ngayDang;
 	}
 
-	public void setCreated_at(String created_at) {
-		this.created_at = created_at;
+	public void setNgayDang(String ngayDang) {
+		this.ngayDang = ngayDang;
 	}
+
+	public String getNgaySua() {
+		return ngaySua;
+	}
+
+	public void setNgaySua(String ngaySua) {
+		this.ngaySua = ngaySua;
+	}
+
 }

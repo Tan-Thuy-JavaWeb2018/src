@@ -30,8 +30,8 @@ public class dao_Comments {
 				comment.setNoidung(rs.getString("noidung"));
 				comment.setId_baiviet(rs.getLong("id_baiviet"));
 				comment.setId_taikhoan(rs.getLong("id_taikhoan"));
-				comment.setCreated_at(rs.getString("created_at"));
-
+				comment.setNgayDang(rs.getString("ngaydang"));
+				comment.setNgaySua(rs.getString("ngaysua"));
 				list.add(comment);
 			}
 			conndb.CloseConnect();
@@ -57,7 +57,8 @@ public class dao_Comments {
 				comment.setNoidung(rs.getString("noidung"));
 				comment.setId_baiviet(rs.getLong("id_baiviet"));
 				comment.setId_taikhoan(rs.getLong("id_taikhoan"));
-				comment.setCreated_at(rs.getString("created_at"));
+				comment.setNgayDang(rs.getString("ngaydang"));
+				comment.setNgaySua(rs.getString("ngaysua"));
 			}
 			conndb.CloseConnect();
 			return comment;
@@ -116,7 +117,7 @@ public class dao_Comments {
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setString(1, comment.getNoidung());
-			pst.setString(2, comment.getUpdated_at());
+			pst.setString(2, comment.getNgaySua());
 			pst.setLong(3, comment.getId());
 			
 			pst.executeUpdate();

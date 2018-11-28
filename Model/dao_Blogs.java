@@ -35,7 +35,8 @@ public class dao_Blogs {
 				blogs.setMota(rs.getString("mota"));
 				blogs.setNoidung(rs.getString("noidung"));
 				blogs.setTieude(rs.getString("tieude"));
-				blogs.setCreated_at(rs.getString("created_at"));
+				blogs.setNgayDang(rs.getString("ngaydang"));
+				blogs.setNgaySua(rs.getString("ngaysua"));
 				// Thêm vào danh sách
 				list.add(blogs);
 			}
@@ -67,7 +68,8 @@ public class dao_Blogs {
 				blog.setNoidung(rs.getString("noidung"));
 				blog.setHinhanh(rs.getString("hinhanh"));
 				blog.setId_taikhoan(rs.getLong("id_taikhoan"));
-				blog.setCreated_at(rs.getString("created_at"));
+				blog.setNgayDang(rs.getString("ngaydang"));
+				blog.setNgaySua(rs.getString("ngaysua"));
 			}
 			// Đóng kết nối
 			conndb.CloseConnect();
@@ -97,7 +99,8 @@ public class dao_Blogs {
 				blog_TaiKhoan.put("noidung", rs.getString("noidung"));
 				blog_TaiKhoan.put("hinhanh", rs.getString("hinhanh"));
 				blog_TaiKhoan.put("hinhdaidien", rs.getString("hinhdaidien"));
-				blog_TaiKhoan.put("created_at", rs.getString("created_at"));
+				blog_TaiKhoan.put("ngaydang", rs.getString("ngaydang"));
+				blog_TaiKhoan.put("ngaysua", rs.getString("ngaysua"));
 				blog_TaiKhoan.put("id_taikhoan", String.valueOf(rs.getLong("id_taikhoan")));
 				blog_TaiKhoan.put("tentaikhoan", rs.getString("tentaikhoan"));
 				blog_TaiKhoan.put("tenhienthi", rs.getString("tenhienthi"));

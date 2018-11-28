@@ -24,7 +24,7 @@ public class BlogsControl {
 	}
 
 	public Map<String, String> getBlog_TaiKhoanWithId(long id) {
-		String sql = "SELECT baiviet.id, tieude, mota, noidung, baiviet.hinhanh, created_at, id_taikhoan, tentaikhoan, tenhienthi, taikhoan.hinhanh as hinhdaidien FROM baiviet, taikhoan WHERE baiviet.id_taikhoan = taikhoan.id and baiviet.id = "
+		String sql = "SELECT baiviet.id, tieude, mota, noidung, baiviet.hinhanh, ngaydang, id_taikhoan, tentaikhoan, tenhienthi, taikhoan.hinhanh as hinhdaidien FROM baiviet, taikhoan WHERE baiviet.id_taikhoan = taikhoan.id and baiviet.id = "
 				+ id;
 		return dao.Blog_TaiKhoanWithId(sql);
 	}
@@ -32,7 +32,7 @@ public class BlogsControl {
 	public boolean getAddData(Blogs blog) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		String sql = "INSERT INTO baiviet (tieude, mota, noidung, hinhanh, id_taikhoan, created_at) " + "VALUES (\""
+		String sql = "INSERT INTO baiviet (tieude, mota, noidung, hinhanh, id_taikhoan, ngaydang) " + "VALUES (\""
 				+ blog.getTieude() + "\", \"" + blog.getMota() + "\", '" + blog.getNoidung() + "', \""
 				+ blog.getHinhanh() + "\", " + blog.getId_taikhoan() + ", DATE(\"" + dateFormat.format(date) + "\"))";
 //		System.out.println(sql);

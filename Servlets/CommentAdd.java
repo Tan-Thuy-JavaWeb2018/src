@@ -15,10 +15,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import Control.CommentsControl;
-import Control.DetailCommentsControl;
 import Control.UserControl;
 import Objects.Comments;
-import Objects.DetailComments;
 import Objects.Users;
 
 /**
@@ -68,7 +66,7 @@ public class CommentAdd extends HttpServlet {
 				String name = new UserControl().getFindById(comments.getId_taikhoan()).getTenhienthi();
 				mapComment.put("tenhienthi", name);
 				mapComment.put("noidung", comments.getNoidung());
-				mapComment.put("created_at", comments.getCreated_at().split(" ")[0]);
+				mapComment.put("created_at", comments.getNgayDang().split(" ")[0]);
 				String opition = "";
 				String editComment = "<button class=\"btn btn-success\" onclick=\"EditComment(" + comments.getId() + ",'"
 						+ comments.getNoidung() + "')\"><span><i class=\"fa fa-edit\"></i></span></button>";
@@ -83,37 +81,9 @@ public class CommentAdd extends HttpServlet {
 				
 				//Lấy toàn bộ DetailComment của Comment id_binhluan
 				JSONArray arrayChiTiet = new JSONArray();
-				DetailCommentsControl detailComment = new DetailCommentsControl();
-				long id_binhluan = Long.valueOf(comments.getId());
-				ArrayList<DetailComments> detailCommentList = detailComment.getListDetailCommentWithID_BinhLuan(id_binhluan);
-				
-				for (DetailComments detailComments : detailCommentList) {
-//					System.out.println(detailComments.getNoidung());
-					HashMap<String,Object> mapDetailComment = new HashMap<String,Object>();
-					mapDetailComment.put("id", detailComments.getId());
-					String detailName = new UserControl().getFindById(detailComments.getId_taikhoan()).getTenhienthi();
-					mapDetailComment.put("tenhienthict", detailName);
-					mapDetailComment.put("noidungchitiet", detailComments.getNoidung());
-					mapDetailComment.put("created_at", detailComments.getCreated_at().split(" ")[0]);
-					String opitionDetail = "";
-					String editDetailComment = "<a class=\"btn btn-success btn-sm\" href=\"editDetailComment?idDetailComment="+ detailComments.getId() + "\"><span><i\r\n" + 
-							"														class=\"fa fa-edit\"></i></span></a>";
-					String deleteDetailComment = "<button class=\"btn btn-secondary btn-sm\" onclick=\"DeleteDetailComment("+ detailComments.getId() + ")\"><span><i class=\"fa fa-trash-o\"></i></span></button>&nbsp&nbsp&nbsp";
-					
-					if(detailComments.getId_taikhoan() == user.getId()) {
-						opitionDetail += deleteDetailComment + editDetailComment;
-					} else {
-						opitionDetail += deleteDetailComment;
-					}
-					mapDetailComment.put("opitionDetail", opitionDetail);
-					
-					JSONObject objDetailComment = new JSONObject(mapDetailComment);
-					arrayChiTiet.add(objDetailComment);
-				}
 				
 
 
-//				objComment.put("chitiet", arrayChiTiet);
 				mapComment.put("chitiet", arrayChiTiet);
 				JSONObject objComment = new JSONObject(mapComment);
 

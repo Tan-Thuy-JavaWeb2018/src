@@ -1,6 +1,7 @@
 package Servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -12,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Control.BlogsControl;
-import Objects.Blogs;
+import Control.CommentsControl;
+import Objects.Comments;
 
 /**
  * Servlet implementation class BlogView
@@ -38,6 +40,11 @@ public class BlogView extends HttpServlet {
 		
 		Map<String, String> blog = new BlogsControl().getBlog_TaiKhoanWithId(id);
 		request.setAttribute("blog", blog);
+		
+		CommentsControl commentControl = new CommentsControl();
+		ArrayList<Comments> commentList = commentControl.getListCommnetsWithID_BaiViet(id);
+		request.setAttribute("comment", commentList);
+		
 		HttpSession session = request.getSession();
 		if (session.getAttribute("uslogin") != null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("view.jsp");

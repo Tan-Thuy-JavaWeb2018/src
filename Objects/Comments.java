@@ -2,15 +2,7 @@ package Objects;
 
 public class Comments {
 	long id, id_baiviet, id_taikhoan;
-	String created_at, noidung, updated_at;
-
-	public String getUpdated_at() {
-		return updated_at;
-	}
-
-	public void setUpdated_at(String updated_at) {
-		this.updated_at = updated_at;
-	}
+	String ngayDang, noidung, ngaySua;
 
 	public long getId() {
 		return id;
@@ -36,12 +28,20 @@ public class Comments {
 		this.id_taikhoan = id_taikhoan;
 	}
 
-	public String getCreated_at() {
-		return created_at;
+	public String getNgayDang() {
+		return ngayDang;
 	}
 
-	public void setCreated_at(String created_at) {
-		this.created_at = created_at;
+	public void setNgayDang(String ngayDang) {
+		this.ngayDang = ngayDang;
+	}
+
+	public String getNgaySua() {
+		return ngaySua;
+	}
+
+	public void setNgaySua(String ngaySua) {
+		this.ngaySua = ngaySua;
 	}
 
 	public String getNoidung() {
@@ -52,17 +52,17 @@ public class Comments {
 		this.noidung = noidung;
 	}
 
-	public Comments(long id, long id_baiviet, long id_taikhoan, String created_at, String noidung, String updated_at) {
+	public Comments() {
+
+	}
+	
+	public Comments(long id, long id_baiviet, long id_taikhoan, String ngayDang, String noidung, String ngaySua) {
 		super();
 		this.id = id;
 		this.id_baiviet = id_baiviet;
 		this.id_taikhoan = id_taikhoan;
-		this.created_at = created_at;
+		this.ngayDang = ngayDang;
 		this.noidung = noidung;
-		this.updated_at = updated_at;
-	}
-
-	public Comments() {
-
+		this.ngaySua = ngaySua;
 	}
 }
