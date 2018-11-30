@@ -20,12 +20,14 @@ import Objects.Users;
 public class UsCheckLogin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user_name = request.getParameter("user-name");
-		String user_pass = request.getParameter("user-password");
+		String user_pass = request.getParameter("user-password"); 
+		String linkback = request.getParameter("link-back");
+		
 		UsAddAccount u = new UsAddAccount(); 
 		user_pass = u.encryption(user_pass);	 
 		dao_Users dao = new dao_Users();
@@ -35,8 +37,13 @@ public class UsCheckLogin extends HttpServlet {
 			Users us = dao.CheckLogin(sql); 
 			session.setAttribute("uslogin", us);  
 			//	Đăng nhập thành công nếu user chuyển qua trang chủ người dùng nếu admin chuyển qua trang chủ admin
-			if(us.getPhanquyen().equals("user")) {
-				response.sendRedirect("../index.jsp"); 
+			if(us.getPhanquyen().equals("user")) {  
+				if(linkback != null) {
+					response.sendRedirect(linkback); 
+				}
+				else {
+					response.sendRedirect("../index.jsp");
+				}
 			}
 			if(us.getPhanquyen().equals("admin")) {
 				response.sendRedirect("../admin/pages/home/");

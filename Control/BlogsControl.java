@@ -14,7 +14,7 @@ public class BlogsControl {
 
 	public ArrayList<Blogs> getListBlogs() {
 
-		String sql = "Select * From baiviet";
+		String sql = "Select * From baiviet ORDER BY id DESC";
 		return dao.SelectDB(sql);
 	}
 
