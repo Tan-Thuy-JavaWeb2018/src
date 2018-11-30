@@ -32,6 +32,7 @@ public class dao_Comments {
 				comment.setId_taikhoan(rs.getLong("id_taikhoan"));
 				comment.setNgayDang(rs.getString("ngaydang"));
 				comment.setNgaySua(rs.getString("ngaysua"));
+				comment.setTenTaiKhoan(rs.getString("tentaikhoan"));
 				list.add(comment);
 			}
 			conndb.CloseConnect();

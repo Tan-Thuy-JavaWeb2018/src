@@ -59,40 +59,12 @@ public class CommentEdit extends HttpServlet {
 		CommentsControl commentControl = new CommentsControl();
 		JSONObject data = new JSONObject();
 
-		String idBaiViet = request.getParameter("idBaiViet");
-
 		if (commentControl.getEditData(comment)) {
-			JSONArray array = new JSONArray();
-
-			// Lấy toàn bộ dữ liệu Comments của bài viết id_baiviet
-			ArrayList<Comments> commentList = commentControl.getListCommnetsWithID_BaiViet(Long.valueOf(idBaiViet));
-			for (Comments comments : commentList) {
-				// put toàn bộ dữ liệu commentList vào mapComment
-				HashMap<String, Object> mapComment = new HashMap<String, Object>();
-				mapComment.put("id", comments.getId());
-				String name = new UserControl().getFindById(comments.getId_taikhoan()).getTenhienthi();
-				mapComment.put("tenhienthi", name);
-				mapComment.put("noidung", comments.getNoidung());
-				mapComment.put("ngaydang", comments.getNgayDang().split(" ")[0]);
-				String opition = "";
-				String editComment = "<button class=\"btn btn-success\" onclick=\"EditComment(" + comments.getId()
-						+ ",'" + comments.getNoidung() + "')\"><span><i class=\"fa fa-edit\"></i></span></button>";
-				String deleteComment = "<button class=\"btn btn-secondary\" onclick=\"DeleteComment(" + comments.getId()
-						+ ")\"><span><i class=\"fa fa-trash-o\"></i></span></button>&nbsp&nbsp&nbsp";
-
-				if (comments.getId_taikhoan() == user.getId()) {
-					opition += deleteComment + editComment;
-				} else {
-					opition += deleteComment;
-				}
-				mapComment.put("opition", opition);
-			}
-			data.put("data", array);
+			
 		} else
 			System.out.println("Sua that bai");
 
-		response.setContentType("application/json");
-		response.getWriter().write(data.toJSONString());
+		response.getWriter().write("");
 	}
 
 	/**

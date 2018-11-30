@@ -24,7 +24,11 @@ public class CommentsControl {
 	
 	//Lấy toàn bộ Comment của bài viết id_baiViet
 	public ArrayList<Comments> getListCommnetsWithID_BaiViet(long id_baiViet) {
+<<<<<<< HEAD
 		String sql = "SELECT * FROM binhluanbaiviet WHERE id_baiviet = " + id_baiViet + " ORDER BY id DESC";
+=======
+		String sql = "SELECT `binhluanbaiviet`.`id`,`noidung`,`id_baiviet`,`id_taikhoan`,`ngaydang`,`ngaysua`, `taikhoan`.`tentaikhoan` FROM `binhluanbaiviet`, `taikhoan` WHERE `binhluanbaiviet`.`id_taikhoan` = `taikhoan`.`id` AND `binhluanbaiviet`.`id_baiviet` = " + id_baiViet;
+>>>>>>> 60087f2f0ab1333534be847d745eb3486a449e6f
 		return dao.SelectDB(sql);
 	}
 	
