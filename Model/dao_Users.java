@@ -152,6 +152,26 @@ public class dao_Users {
 		return null;
 	}
 	
+//	Phương thức tên hiển thị cho tài khoản
+	public boolean EditAccountDisplayName(String displayName, long id) {
+		conndb = new ConnectToDB();
+		con = (Connection) conndb.OpenConnnect();  
+		String sql = "UPDATE taikhoan SET tenhienthi = ? WHERE id = ? ";
+		PreparedStatement pst = null;
+		try { 
+			pst = con.prepareCall(sql); 
+			pst.setString(1, displayName);
+			pst.setLong(2, id);   
+			pst.executeUpdate();
+			conndb.CloseConnect(); 
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		conndb.CloseConnect();
+		return false;
+	}
+
 	public static void main(String[] args) {  
 
 	}

@@ -24,7 +24,7 @@ public class BlogsControl {
 	}
 
 	public Map<String, String> getBlog_TaiKhoanWithId(long id) {
-		String sql = "SELECT baiviet.id, tieude, mota, noidung, baiviet.hinhanh, ngaydang, id_taikhoan, tentaikhoan, tenhienthi, taikhoan.hinhanh as hinhdaidien FROM baiviet, taikhoan WHERE baiviet.id_taikhoan = taikhoan.id and baiviet.id = "
+		String sql = "SELECT baiviet.id, tieude, mota, noidung, baiviet.hinhanh, ngaydang, ngaysua, id_taikhoan, tentaikhoan, tenhienthi, taikhoan.hinhanh as hinhdaidien FROM baiviet, taikhoan WHERE baiviet.id_taikhoan = taikhoan.id and baiviet.id = "
 				+ id;
 		return dao.Blog_TaiKhoanWithId(sql);
 	}

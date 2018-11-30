@@ -2,7 +2,6 @@ package Servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,11 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import Control.CommentsControl;
-import Control.UserControl;
 import Objects.Comments;
 import Objects.Users;
 
@@ -53,50 +48,50 @@ public class CommentAdd extends HttpServlet {
 		comment.setId_taikhoan(id_user);
 		
 		CommentsControl commentControl = new CommentsControl();
-		JSONObject data = new JSONObject();
+		String str = "";
 		if(commentControl.getAddData(comment)) {
-			JSONArray array = new JSONArray();
-			
-			//Lấy toàn bộ dữ liệu Comments của bài viết id_baiviet
+			str += "<p style=\"display: none;\">"+ idBaiViet + "</p>";
+			str += "<table id=\"bootstrap-data-table\"\r\n" + 
+					"			class=\"table table-striped table-bordered\">\r\n" + 
+					"			<thead>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<th>ID</th>\r\n" + 
+					"					<th>Tên</th>\r\n" + 
+					"					<th>Nội dung</th>\r\n" + 
+					"					<th>Ngày bình luận</th>\r\n" + 
+					"					<th>Chỉnh sửa</th>\r\n" + 
+					"					<th>Xóa</th>\r\n" + 
+					"				</tr>\r\n" + 
+					"			</thead>\r\n" + 
+					"			<tfoot>\r\n" + 
+					"				<tr>\r\n" + 
+					"					<th>ID</th>\r\n" + 
+					"					<th>Tên</th>\r\n" + 
+					"					<th>Nội dung</th>\r\n" + 
+					"					<th>Ngày bình luận</th>\r\n" + 
+					"					<th>Chỉnh sửa</th>\r\n" + 
+					"					<th>Xóa</th>\r\n" + 
+					"				</tr>\r\n" + 
+					"			</tfoot>\r\n" + 
+					"			<tbody>";
 			ArrayList<Comments> commentList = commentControl.getListCommnetsWithID_BaiViet(Long.valueOf(idBaiViet));
-			for (Comments comments : commentList) {
-				//put toàn bộ dữ liệu commentList vào mapComment
-				HashMap<String,Object> mapComment = new HashMap<String,Object>();
-				mapComment.put("id", comments.getId());
-				String name = new UserControl().getFindById(comments.getId_taikhoan()).getTenhienthi();
-				mapComment.put("tenhienthi", name);
-				mapComment.put("noidung", comments.getNoidung());
-				mapComment.put("created_at", comments.getNgayDang().split(" ")[0]);
-				String opition = "";
-				String editComment = "<button class=\"btn btn-success\" onclick=\"EditComment(" + comments.getId() + ",'"
-						+ comments.getNoidung() + "')\"><span><i class=\"fa fa-edit\"></i></span></button>";
-				String deleteComment = "<button class=\"btn btn-secondary\" onclick=\"DeleteComment("+ comments.getId() + ")\"><span><i class=\"fa fa-trash-o\"></i></span></button>&nbsp&nbsp&nbsp";
-				
-				if(comments.getId_taikhoan() == user.getId()) {
-					opition += deleteComment + editComment;
-				} else {
-					opition += deleteComment;
-				}
-				mapComment.put("opition", opition);
-				
-				//Lấy toàn bộ DetailComment của Comment id_binhluan
-				JSONArray arrayChiTiet = new JSONArray();
-				
-
-
-				mapComment.put("chitiet", arrayChiTiet);
-				JSONObject objComment = new JSONObject(mapComment);
-
-				
-				array.add(objComment);
-				
+			for (Comments cm : commentList) {
+				str += "<tr>\r\n" + 
+						"	<td>" + cm.getId() + "</td>\r\n" + 
+						"	<td>"+ cm.getTenTaiKhoan() + "</td>\r\n" + 
+						"	<td>"+ cm.getNoidung() + "</td>\r\n" + 
+						"	<td>"+ cm.getNgayDang() +"</td>\r\n" + 
+						"	<td><button class=\"btn btn-success\" onclick=\"EditComment("+ cm.getId() + ", '"+ cm.getNoidung() + "')\"><span><i class=\"fa fa-edit\"></i></span> Sửa</button></td>\r\n" + 
+						"	<td><button class=\"btn btn-secondary\" onclick=\"DeleteComment("+ cm.getId() +")\">\r\n" + 
+						"		<span><i class=\"fa fa-trash-o\"></i></span> Xóa\r\n" + 
+						"	</button></td>\r\n" + 
+						"</tr>";
 			}
-			data.put("data", array);
 		} else System.out.println("Thất bại");
 		
-		
-		response.setContentType("application/json");
-		response.getWriter().write(data.toJSONString());
+		str += "</tbody>\r\n" + 
+				"</table>";
+		response.getWriter().write(str);
 	}
 
 	/**

@@ -18,4 +18,8 @@ public class UserControl {
 		String sql = "SELECT * FROM taikhoan WHERE id = " + id;
 		return dao.FindById(sql);
 	}
+	
+	public boolean getEditAccountDisplayName(String displayName, long id) {
+		return dao.EditAccountDisplayName(displayName, id);
+	}
 }

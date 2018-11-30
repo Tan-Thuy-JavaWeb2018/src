@@ -2,7 +2,15 @@ package Objects;
 
 public class Comments {
 	long id, id_baiviet, id_taikhoan;
-	String ngayDang, noidung, ngaySua;
+	String ngayDang, noidung, ngaySua, tenTaiKhoan;
+
+	public String getTenTaiKhoan() {
+		return tenTaiKhoan;
+	}
+
+	public void setTenTaiKhoan(String tenTaiKhoan) {
+		this.tenTaiKhoan = tenTaiKhoan;
+	}
 
 	public long getId() {
 		return id;
@@ -51,12 +59,14 @@ public class Comments {
 	public void setNoidung(String noidung) {
 		this.noidung = noidung;
 	}
+	
 
 	public Comments() {
 
 	}
-	
-	public Comments(long id, long id_baiviet, long id_taikhoan, String ngayDang, String noidung, String ngaySua) {
+
+	public Comments(long id, long id_baiviet, long id_taikhoan, String ngayDang, String noidung, String ngaySua,
+			String tenTaiKhoan) {
 		super();
 		this.id = id;
 		this.id_baiviet = id_baiviet;
@@ -64,5 +74,6 @@ public class Comments {
 		this.ngayDang = ngayDang;
 		this.noidung = noidung;
 		this.ngaySua = ngaySua;
+		this.tenTaiKhoan = tenTaiKhoan;
 	}
 }
