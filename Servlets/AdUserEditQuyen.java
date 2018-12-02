@@ -1,30 +1,25 @@
 package Servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import Control.BillsControl;
-import Objects.Bills;
+import Control.UserControl;
 
 /**
- * Servlet implementation class BillList
+ * Servlet implementation class AdUserEditQuyen
  */
-@WebServlet(description = "List", urlPatterns = { "/admin/pages/bill/list" })
-public class BillList extends HttpServlet {
+@WebServlet(description = "Quyen", urlPatterns = { "/admin/pages/user/editquyen" })
+public class AdUserEditQuyen extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BillList() {
+	public AdUserEditQuyen() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,16 +30,8 @@ public class BillList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<Bills> list = new BillsControl().getSelectDatHang_Ship();
-		
-		request.setAttribute("list", list);
-		HttpSession session = request.getSession();
-		if (session.getAttribute("uslogin") != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
-			dispatcher.forward(request, response);
-		}else {
-			response.sendRedirect("../../../pages/login.jsp");
-		}
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -53,8 +40,15 @@ public class BillList extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		String id = request.getParameter("id");
+		String quyen = request.getParameter("phanquyen").equals("user")? "admin" : "user";
+		
+		if(new UserControl().getEditAccountQuyen(quyen, Long.valueOf(id))) {
+			response.getWriter().append("1");
+		} else response.getWriter().append("0");
 	}
-
 }

@@ -11,20 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Control.BillDetailsControl;
 import Control.BillsControl;
+import Objects.BillDetailsFull;
 import Objects.Bills;
 
 /**
- * Servlet implementation class BillList
+ * Servlet implementation class BillDetailView
  */
-@WebServlet(description = "List", urlPatterns = { "/admin/pages/bill/list" })
-public class BillList extends HttpServlet {
+@WebServlet(description = "View", urlPatterns = { "/admin/pages/bill/viewdetail" })
+public class BillDetailView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BillList() {
+	public BillDetailView() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,14 +37,29 @@ public class BillList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<Bills> list = new BillsControl().getSelectDatHang_Ship();
-		
+		String idHoaDon = request.getParameter("idHoaDon");
+		String huy = request.getParameter("huy");
+		String thanhtoan = request.getParameter("thanhtoan");
+
+		ArrayList<BillDetailsFull> list = new BillDetailsControl().getFindByIdHoaDon(Long.valueOf(idHoaDon));
 		request.setAttribute("list", list);
+		request.setAttribute("idHoaDon", idHoaDon);
 		HttpSession session = request.getSession();
 		if (session.getAttribute("uslogin") != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
-			dispatcher.forward(request, response);
-		}else {
+			if(huy == null && thanhtoan == null) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetail.jsp");
+				dispatcher.forward(request, response);
+			} else {
+				if(huy == null) {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetailpayment.jsp");
+					dispatcher.forward(request, response);
+				} else {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetaildestroy.jsp");
+					dispatcher.forward(request, response);
+				}
+			}
+			
+		} else {
 			response.sendRedirect("../../../pages/login.jsp");
 		}
 	}

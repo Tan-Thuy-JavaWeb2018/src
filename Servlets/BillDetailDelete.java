@@ -11,20 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Control.BillDetailsControl;
 import Control.BillsControl;
-import Objects.Bills;
+import Objects.BillDetailsFull;
 
 /**
- * Servlet implementation class BillList
+ * Servlet implementation class BillDetailDelete
  */
-@WebServlet(description = "List", urlPatterns = { "/admin/pages/bill/list" })
-public class BillList extends HttpServlet {
+@WebServlet(description = "Delete", urlPatterns = { "/admin/pages/bill/deletedetail" })
+public class BillDetailDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BillList() {
+	public BillDetailDelete() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,15 +36,26 @@ public class BillList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<Bills> list = new BillsControl().getSelectDatHang_Ship();
+		String idHoaDon = request.getParameter("idHoaDon");
+		long id = Long.valueOf(request.getParameter("id"));
+		request.setAttribute("idHoaDon", idHoaDon);
 		
-		request.setAttribute("list", list);
-		HttpSession session = request.getSession();
-		if (session.getAttribute("uslogin") != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
-			dispatcher.forward(request, response);
-		}else {
-			response.sendRedirect("../../../pages/login.jsp");
+		boolean check = new BillDetailsControl().getDelData(id);
+		
+		if (check) {
+			HttpSession session = request.getSession();
+			ArrayList<BillDetailsFull> billFull = new BillDetailsControl().getFindByIdHoaDon(Long.valueOf(idHoaDon));
+			if(billFull.size() == 0) {
+				if(new BillsControl().getEditDataStatus(3, Long.valueOf(idHoaDon))) {
+					
+				}
+				session.setAttribute("Empty", "Success");
+				response.sendRedirect("list");
+			} else {
+				session.setAttribute("Delete", "Success");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("viewdetail");
+				dispatcher.forward(request, response);
+			}
 		}
 	}
 

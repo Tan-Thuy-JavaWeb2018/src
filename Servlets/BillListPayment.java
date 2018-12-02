@@ -15,16 +15,16 @@ import Control.BillsControl;
 import Objects.Bills;
 
 /**
- * Servlet implementation class BillList
+ * Servlet implementation class BillListPayment
  */
-@WebServlet(description = "List", urlPatterns = { "/admin/pages/bill/list" })
-public class BillList extends HttpServlet {
+@WebServlet(description = "List Payment", urlPatterns = { "/admin/pages/bill/listpayment" })
+public class BillListPayment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BillList() {
+	public BillListPayment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,26 +35,16 @@ public class BillList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<Bills> list = new BillsControl().getSelectDatHang_Ship();
-		
+		ArrayList<Bills> list = new BillsControl().getSelectPayment();
+
 		request.setAttribute("list", list);
 		HttpSession session = request.getSession();
 		if (session.getAttribute("uslogin") != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("listpayment.jsp");
 			dispatcher.forward(request, response);
-		}else {
+		} else {
 			response.sendRedirect("../../../pages/login.jsp");
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }
