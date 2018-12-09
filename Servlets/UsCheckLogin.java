@@ -46,6 +46,7 @@ public class UsCheckLogin extends HttpServlet {
 				}
 			}
 			if(us.getPhanquyen().equals("admin")) {
+				session.setAttribute("admin", "admin");
 				response.sendRedirect("../admin/pages/home/");
 			} 
 		}

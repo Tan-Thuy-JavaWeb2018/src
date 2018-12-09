@@ -188,6 +188,45 @@ public class dao_Bills {
 		return false;
 	}
 
+	// Phương thức lấy dữ liệu về
+	public String [] SelectDB30Days(String last30Days, String now) {
+		conndb = new ConnectToDB();
+		Connection con = (Connection) conndb.OpenConnnect();
+		String [] arr = new String[2];
+		Statement stmt;
+		try {
+			stmt = (Statement) con.createStatement();
+			String sql = "SELECT ROUND(SUM(`chitiethoadon`.`soluong` * `sanpham`.`giagoc` - `chitiethoadon`.`soluong` * `sanpham`.`giagoc` * `sanpham`.`khuyenmai`/100), -3) AS tongtien, `ngaydat` FROM `hoadon`, `chitiethoadon`, `sanpham` WHERE `hoadon`.`id` = `chitiethoadon`.`id_hoadon` AND `chitiethoadon`.`id_sanpham` = `sanpham`.`id` AND `ngaydat` BETWEEN '"
+					+ last30Days + "' AND '" + now + "' AND `hoadon`.`trangthai` = 2 GROUP BY `ngaydat` ORDER BY `ngaydat`";
+			System.out.println(sql);
+			String valueNgay = "";
+			valueNgay += "[";
+			String valueTongTien = "";
+			valueTongTien += "[";
+			ResultSet rs = stmt.executeQuery(sql);
+			int a = 0;
+			while (rs.next()) {
+				valueNgay += "'" + rs.getString("ngaydat").split(" ")[0] + "', ";
+				valueTongTien += rs.getString("tongtien") + ", ";
+				
+			}
+			valueNgay = valueNgay.substring(0, valueNgay.length() - 2);
+			valueTongTien = valueTongTien.substring(0, valueTongTien.length() - 2);
+			valueNgay += "]";
+			valueTongTien += "]";
+			arr[0] = valueNgay;
+			arr[1] = valueTongTien;
+			// Đóng kết nối
+			conndb.CloseConnect();
+			return arr;
+		} catch (SQLException e) {
+			// Đóng kết nối
+			conndb.CloseConnect();
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public static void main(String[] args) {
 		// ArrayList<Bills> arr = new dao_Bills().SelectDB("Select * from hoadon");
 		// for (Bills bills : arr) {

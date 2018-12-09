@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import Model.dao_Bills;
 import Objects.Bills;
@@ -13,6 +14,18 @@ public class BillsControl {
 
 	public ArrayList<Bills> getSelectDatHang_Ship() {
 		String sql = "SELECT * FROM hoadon WHERE trangthai = 0 OR trangthai = 1";
+		return dao.SelectDB(sql);
+	}
+
+	// Danh sách hóa đơn đặt hàng
+	public ArrayList<Bills> getSelectDatHang() {
+		String sql = "SELECT * FROM hoadon WHERE trangthai = 0";
+		return dao.SelectDB(sql);
+	}
+
+	// Danh sách hóa đơn đang ship
+	public ArrayList<Bills> getSelectDangShip() {
+		String sql = "SELECT * FROM hoadon WHERE trangthai = 1";
 		return dao.SelectDB(sql);
 	}
 
@@ -55,5 +68,9 @@ public class BillsControl {
 	public boolean getEditDataNote(String ghichu, long id) {
 		String sql = "UPDATE hoadon SET ghichu = ? WHERE id = ?";
 		return dao.EditDataNote(ghichu, id, sql);
+	}
+	
+	public String[] getSelectDB30Days(String last30Days, String now){
+		return dao.SelectDB30Days(last30Days, now);
 	}
 }
