@@ -4,7 +4,7 @@ public class ThongKes {
 	long id, tongTien;
 
 	public ThongKes() {
-		super();
+		super(); 
 	}
 
 	public ThongKes(long id, long tongTien, String hoTen, String soNhan, String diaChi, String dienThoai, String email,
